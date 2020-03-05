@@ -1,0 +1,8 @@
+{
+    "name": "portfolio",
+    "author": "Joann Saeou",
+    "private": true,
+    "dependencies": {
+        "ejs": "^3.0.1"
+    }
+}
