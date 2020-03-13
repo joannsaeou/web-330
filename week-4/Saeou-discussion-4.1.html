@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Week 4 ajax</title>
+
+
+
+
+
+    <!-- jquery's-->
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+
+    <style>
+        h2 {
+            background-color: blue;
+            opacity: 0.56;
+            color: #efe5d0;
+        }
+        
+        .title {
+            color: grey;
+            font-size: 18px;
+        }
+        
+        #searchForm {}
+        
+        #kg {
+            box-shadow: 2px 2px 7px 1px #1d5980;
+            font-size: 17px;
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <h2>Weight Converter</h2>
+
+
+    <p>
+        <label>Pounds</label>
+        <input id="inputPounds" type="number" placeholder="Pounds" oninput="weightConverter(this.value)" onchange="weightConverter(this.value)">
+    </p>
+    <p> <mark id="kg"> Kilogram:</mark> <span id="kilogram"></span></p>
+
+
+
+    <hr/>
+
+
+
+    <button id="get1"> Convert </button>
+
+    <script>
+        function weightConverter(valNum) {
+            document.getElementById("kilogram").innerHTML = valNum / 2.2046;
+        };
+    </script>
+
+    <script>
+        $(function() {
+
+            $("get1").click(function() {
+
+                $.get('http://convertkg.io/api/convert/kilograms', function(data, status) {
+
+                    console.log("Data: " + JSON.stringify(data) + '\nStatus: ' + status);
+                })
+
+            });
+        });
+    </script>
+
+
+
+</body>
+
+</html>
