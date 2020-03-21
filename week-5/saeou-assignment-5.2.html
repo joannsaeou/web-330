@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Exercise 5.2 - The Proxy Pattern</title>
+
+    <!-- jquery Reference Library -->
+    <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/5DACB2B0-5003-6543-8B39-D8EE6E4FC44C/main.js" charset="UTF-8"></script>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-dark bg-dark">
+        <a href="#" class="navbar-brand">Home </a>
+
+    </nav>
+
+    <br/><br/>
+
+    <div class="container">
+        <div class="row"></div>
+
+        <div class="col-md-12">
+            <h2> Assignment 5.2 Proxy Pattern </h2>
+
+            <button class="btn btn-primary" id="btnPreviewProxy">Preview Proxy</button>
+
+            <br/> <br/>
+
+            <span id="SpanProxyResults"></span>
+
+
+        </div>
+    </div>
+    <script>
+        $(function() {
+            var foods = {
+                name: "Apple",
+                type: "fruits",
+                display: function() {
+                    $("#spanProxyResults").html(""); //clears span tag before adding new content
+
+                    $("spanProxyResults").append("<br />N   ame: " + this.name + "<br />Type: " + this.type);
+
+
+
+
+                }
+            };
+
+            $("#btnPreviewProxy").click($.proxy(foods, "display"));
+
+
+
+
+        });
+    </script>
+</body>
+
+</html>
