@@ -24,57 +24,36 @@
     <!-- JavaScript Libraries -->
     <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/5DACB2B0-5003-6543-8B39-D8EE6E4FC44C/main.js" charset="UTF-8"></script>
     <script type='text/javascript' src='../knockout-3.5.1.js'></script>
+    <!-- jQuery-->
+    <script src="jquery-3.4.1.min.js"></script>
 
 </head>
 
 <body>
 
-
-
     <script>
-        var model = function() {
+        ko.bindingHandlers.jqButton = {
+            init: function(element, valueAccessor) {
+                var options = valueAccessor() || {};
+                $(element).button(options);
 
-            this.self = this;
+                //handle disposal (if KO removes by the template binding)
+                ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
+                    $(element).button("destroy");
+                });
+            }
+        };
 
+        var viewModel = {
+            greet: function() {
+                alert("Hello hello hello hello ");
+            }
+        };
 
-            this.singleValue = ko.observable(15, 25, 35, 45, 55);
-            this.arrayValue = ko.observable([1, 2, 3, 'a', 'b', 'c', "d", "f", "g"]);
-            this.object = ko.observable({
-                name: 'Joann',
-                date: 'april',
-                value: 100
-            });
-
-        }
-
-
-        window.onload = function() {
-
-            ko.applyBindings(new model());
-
-
-        }
+        ko.applyBindings(viewModel);
     </script>
 
-
-    <script>
-    </script>
-
-
-    <p><span data-bind="text: singleValue"></span> </p>
-
-
-    <ul data-bind="foreach: arrayValue">
-
-        <li data-bind="text: $data"> </li>
-
-
-
-    </ul>
-
-    <b>name: </b> <span data-bind="text: object().name"></span>
-    <b>value: </b> <span data-bind="text: object().value"></span>
-    <b>date: <span data-bind="text: object().date"></span> </b>
+    <button data-bind="click: greet, jqButton: { icons: { primary: 'ui-icon-gear' } }">hello testing 1 testing 2 testing 3</button>
 
 
 
