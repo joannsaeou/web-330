@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<!--
+
+============================================
+; Title:  Saeou-assignment-7.4.js
+; Author: Joann Saeou
+; Date:   5 April 2020
+; Description:Demonstrates custom binding  week 7
+;===========================================
+
+  -->
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <title>Assignment 7.4</title>
+
+    <!-- Stylesheet - Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous" />
+
+    <!-- JavaScript Libraries -->
+    <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/5DACB2B0-5003-6543-8B39-D8EE6E4FC44C/main.js" charset="UTF-8"></script>
+    <script src="/knockout-3.5.1.js"></script>
+
+    <!-- navbar nav -->
+
+    <nav class="navbar sticky-top navbar-dark bg-primary">
+        <a class="navbar-brand" href="saeou-assignment-7.4.html">Home</a>
+        <a class="navbar-brand" href="#!">about me</a>
+        <a class="navbar-brand" href="#!">Contact </a>
+    </nav>
+</head>
+
+<body>
+
+    <!-- view (part 1 knockout)-->
+
+    <div role="main" class="container">
+
+        <br/><br/>
+
+        <h2>
+            <p data-bind="style:  { marginBottom: '1em', paddingBottom: '2em', border: '1px', color: 'green'} "> My go-to Top 5 JavaScript Tutorials</p>
+        </h2>
+        <table class="table table-bordered">
+
+            <thead>
+
+                <tr class="table-info">
+                    <th>
+                        <p data-bind="style:  { marginBottom: '1em', paddingBottom: '2em', border: '1px', color: 'blue'} ">Title</p>
+                    </th>
+                    <th>
+                        <p data-bind="style:  { marginBottom: '1em', paddingBottom: '2em', border: '1px', color: 'blue'} "> Description</p>
+                    </th>
+
+                    <th>
+                        <p data-bind="style:  { marginBottom: '1em', paddingBottom: '2em', border: '1px', color: 'red'} "> URL </p>
+                    </th>
+
+
+
+
+                </tr>
+
+
+            </thead>
+
+            <tbody data-bind="foreach: tutorials">
+
+                <tr>
+
+
+                    <td data-bind="text: title"></td>
+
+                    <td data-bind="text: description"></td>
+
+                    <td><a data-bind="attr: {href: Link}" target="_blank">Link</a></td>
+
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+        <br/>
+
+
+    </div>
+
+
+    <script type="text/JavaScript" src="../knockout-3.5.1.js"></script>
+
+
+    <script>
+        //viewModel (part 2 knockout)
+        function TutorialViewModel() {
+
+            var self = this;
+
+            this.tutorials = ko.observableArray([
+
+                {
+                    title: 'Knockout.js',
+                    description: 'An overview of Knockout.js',
+                    Link: 'https://riptutorial.com/knockout-js'
+                }, {
+                    title: 'Learning Center',
+                    description: 'write less, do more with jQuery',
+                    Link: 'https://learn.jquery.com/'
+                }, {
+                    title: 'Templating with EJS',
+                    description: 'use EJS to Template Your Node Application',
+                    Link: 'https://scotch.io/tutorials/use-ejs-to-template-your-node-application'
+                }, {
+                    title: 'Node.js express framework ',
+                    description: 'Learn express in 10 minutes',
+                    Link: 'https://www.guru99.com/node-js-express.html'
+                }, {
+                    title: 'The Modern JavaScript Tutorial',
+                    description: 'From the basic to advanced topics with simple, but detailed explanations',
+                    Link: 'https://javascript.info/'
+                },
+            ]);
+
+            this.styling = ko.observable({
+
+                color: 'red',
+
+                background: 'white'
+
+            });
+
+            this.changeStyles = function() {
+
+                this.styling({
+
+                    color: 'purple',
+
+                    background: '#369F00'
+
+                });
+            };
+
+
+
+        }
+
+        //model view (part 3 knockout ways)
+
+        var viewModel = new TutorialViewModel();
+
+        ko.applyBindings(TutorialViewModel());
+    </script>
+
+
+
+
+</body>
+
+</html>
