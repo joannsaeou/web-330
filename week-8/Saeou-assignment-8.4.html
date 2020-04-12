@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+
+<!--
+
+============================================
+; Title:  Saeou-assignment-8.4.js
+; Author: Joann Saeou
+; Date:   07 April 2020
+; Description:Demonstrates CR operation  week 8 
+;===========================================
+
+  -->
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <title>Exercise 8.4</title>
+
+    <!-- Stylesheet - Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous" />
+
+    <!-- JavaScript Libraries -->
+    <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/5DACB2B0-5003-6543-8B39-D8EE6E4FC44C/main.js" charset="UTF-8"></script>
+    <script src="../knockout-3.5.1.js"></script>
+</head>
+
+<body>
+
+    <!-- CR example from Assignment 8.2-->
+    <div role="main" class="container">
+
+        <br/> <br/>
+
+
+
+        <h2>CR example </h2>
+
+        <div class="row" data-bind="if: error">
+
+            <div class="col-sm-12">
+
+                <div class="alert alert-danger" role="alert">
+
+
+                    <strong>Warning!</strong> <span data-bind="text: error()"></span>
+
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="row">
+
+        <div class="col-sm-8">
+
+            <div class="card card-inverse" style="background-color: #333; border-color:#333; color: white;">
+
+
+                <div class="card-block p-3">
+
+                    <h3 class="card-title">Employee </h3>
+
+                    <div class="card-text">
+
+                        <div class="form-group row">
+
+                            <label for="txtEmployee" class="col-2 col-form-label"> </label>
+
+                            <div class="col-6">
+
+                                <input type="text" data-bind="value: employeeToAdd, valueUpdate: 'afterkeydown'" class="form-control" id="txtEmployee" />
+
+
+
+
+                            </div>
+
+                            <div class="col-4">
+
+                                <a href="#" data-bind="click: add" class="btn btn-primary">Add</a>
+
+
+
+
+
+                            </div>
+
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label for="txtEmployeeList">Employee List: </label>
+
+                            <select size="5" class="form-control" data-bind="options: Employee" id="txtEmployeeList"></select>
+
+                            <table class="table table-dark table-striped table-hover">
+
+                                <thead>
+                                    <tr>
+
+                                        <th>Id</th>
+                                        <th>Name</th>
+                                        <th>Functions</th>
+
+                                    </tr>
+
+                                </thead>
+
+                                <tbody data-bind="foreach: Employees">
+
+                                    <tr>
+
+                                        <td data-bind="text: Id"></td>
+                                        <td data-bind="text: Name"></td>
+
+                                        <td>
+
+                                            <span>
+ <a href="#" class="btn btn-success" data-bind="click:
+$root.edit">
+
+ <i class="fa fa-pencil fa-lg"> </i> EDIT </a>
+
+ </span> |
+
+
+                                            <span>
+
+    <a href="#" class="btn btn-danger" data-bind="click:
+   $root.remove">
+
+    <i class="fa fa-trash-o fa-lg"> </i> DELETE </a>
+    </span>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-sm-4" data-bind="if: Employee">
+
+                <div class="card card-inverse" style="background-color: #333; border-color:
+   #333; color: white;">
+
+                    <div class="card-block p-3">
+
+                        <h3 class="card-title">Employee List </h3>
+
+                        <div class="card-text">
+
+                            <div class="form-group">
+
+                                <label for="txtName">Name: </label>
+
+                                <input type="text" id="txtName" data-bind="value: Employee().Name" class="form-control" />
+                            </div>
+
+
+
+                            <div class="form-group float-right">
+                                <button data-bind="click: $root.cancel" class="btn btn-group btn-danger">
+                                      Cancel
+                                    </button>
+                                <button data-bind="click: $root.update" class="btn btn-group btn-success">
+                                      Save
+                                    </button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br/>
+    </div>
+
+
+
+
+    </div>
+
+    </div>
+
+    </div>
+
+    </div>
+
+    </div>
+
+    </div>
+
+
+
+
+
+
+    <script>
+        function EmployeeViewModel() {
+
+            var self = this;
+
+            self.Error = ko.observable("");
+
+            self.Id = ko.observable("");
+
+            self.Name = ko.observable("");
+
+            let Employee = {
+
+                Id: self.Id,
+
+                Name: self.Name
+
+
+            };
+
+            self.Employee = ko.observable();
+
+            self.Employees = ko.observableArray(employeeList);
+
+            //function self to edit employee
+
+            self.edit = function(Employee) {
+
+                self.Employee(Employee);
+
+
+            };
+
+
+            // function self to remove employees
+            self.remove = function(Employee) {
+
+                self.Employees.remove(Employee);
+
+
+
+            };
+
+            self.cancel = function() {
+
+                self.Employee(null);
+
+
+            };
+
+            self.update = function() {
+
+                var l_employee = self.Employee();
+
+                self.Employees.remove(self.Employee());
+
+                var l_employee = self.Employee();
+
+
+            }
+
+        }
+
+        function Employee(id, name) {
+
+            this.Id = id;
+
+            this.Name = name;
+
+        }
+
+        let employeeList = [
+
+            new Employee(1, "Abby"),
+
+            new Employee(2, "Bobby"),
+
+            new Employee(3, "Cabby"),
+
+            new Employee(4, "Debby"),
+
+            new Employee(5, "Ebby")
+
+        ];
+
+        this.error = ko.observable("");
+
+        this.add = function(Employee) {
+
+            if ((this.nameToAdd() !== "") && (this.employeeList.indexOf(this.nameToAdd()) < 0)) {
+
+                this.error("");
+
+                this.employeeList.push(this.nameToAdd());
+
+
+            } else {
+
+                this.error("Duplicate or Invalid Entry.");
+
+
+            };
+
+            this.nameToAdd("employeeList");
+
+
+        };
+
+
+        var viewModel = new EmployeeViewModel();
+
+
+        ko.applyBindings(EmployeeViewModel());
+    </script>
+
+
+
+
+
+</body>
+
+</html>
